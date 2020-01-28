@@ -54,6 +54,7 @@ func threeSum(nums []int) [][]int {
 				for l < r && nums[r] == nums[r-1] {
 					r -= 1
 				}
+				// 满足之后换下一组,既然和为0, 左右指针都动才有可能为0
 				l++
 				r--
 				// 和小了,左指针后移变大一点
