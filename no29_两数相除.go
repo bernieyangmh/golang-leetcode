@@ -13,8 +13,40 @@
 package main
 
 func main() {
-	println(divide2(312312, 3))
+	println(divide1(-2147483648, -1))
 
+}
+
+// 常规做法是，减数一次一次减去被减数，不断更新差，直到差小于0，我们减了多少次，结果就是多少。
+func divide1(dividend int, divisor int) int {
+	var (
+		res      int
+		maxValue = (1 << 31) - 1
+		minValue = -1 << 31
+	)
+	// 这里也需要处理最大最小值
+	if divisor == 1 {
+		return min(maxValue, max(dividend, minValue))
+	}
+	if divisor == -1 {
+		return min(maxValue, max(-dividend, minValue))
+	}
+	sign := (dividend > 0) == (divisor > 0)
+	if divisor < 0 {
+		divisor = -divisor
+	}
+	if dividend < 0 {
+		dividend = -dividend
+	}
+	//注意边界条件, 能再减一次的时候,res才能够+1
+	for dividend >= divisor {
+		res += 1
+		dividend = dividend - divisor
+	}
+	if !sign {
+		res = -res
+	}
+	return min(maxValue, max(res, minValue))
 }
 
 func divide(dividend int, divisor int) int {
@@ -59,6 +91,7 @@ func divide(dividend int, divisor int) int {
 	return result
 }
 
+// 移位法
 func divide2(dividend int, divisor int) int {
 	sign := (dividend > 0) != (divisor > 0)
 	if dividend < 0 {
@@ -95,4 +128,80 @@ func divide2(dividend int, divisor int) int {
 		return result
 	}
 	return 1<<31 - 1
+}
+
+// 二分法
+func divide3(dividend int, divisor int) int {
+	var (
+		MAX_VALUE = 1<<31 - 1
+		MIN_VALUE = -1 << 31
+		result    int
+		sign      bool
+	)
+	if divisor == 0 {
+		return dividend
+	}
+	// 1和-1特殊处理 优化一下
+	if divisor == 1 {
+		result = dividend
+		return min(MAX_VALUE, max(MIN_VALUE, result))
+	}
+	if divisor == -1 {
+		result = -dividend
+		return min(MAX_VALUE, max(MIN_VALUE, result))
+	}
+	// 确定最后的正负
+	sign = (dividend > 0) == (divisor > 0)
+
+	// 换成绝对值
+	if divisor < 0 {
+		divisor = -divisor
+	}
+	if dividend < 0 {
+		dividend = -dividend
+	}
+	// divisor 在multiDivide翻倍,在该while循环仍保持初始值
+	for divisor <= dividend {
+		println(result, dividend, divisor)
+		r, d := multiDivide(dividend, divisor)
+		dividend = d
+		result += r
+	}
+	if !sign {
+		result = -result
+	}
+	return min(MAX_VALUE, max(MIN_VALUE, result))
+}
+
+// 翻倍除法，如果可以被除，则下一步除数翻倍，直至除数大于被除数，
+// 返回商加总的结果与被除数的剩余值；
+// 10/3 1.减1次3 2.减2次3 3.减3次3 4.减4次3
+func multiDivide(dividend int, divisor int) (res, d int) {
+	count := 1
+
+	// divisor 3, 6, 12, 24
+	// count 1, 2, 4 ,8
+	// res 1, 3, 7, 15
+	for divisor <= dividend {
+		dividend -= divisor
+		res += count
+		count += count
+		divisor += divisor
+	}
+	// 抛出减后的被除数的剩余,从初始除数继续计数
+	return res, dividend
+}
+
+func min(a, b int) int {
+	if a < b {
+		return a
+	}
+	return b
+}
+
+func max(a, b int) int {
+	if a > b {
+		return a
+	}
+	return b
 }
