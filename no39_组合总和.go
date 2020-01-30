@@ -26,7 +26,7 @@ import (
 )
 
 func main() {
-	a := []int{2, 3, 5}
+	a := []int{10, 1, 2, 7, 6, 1, 5}
 	// fmt.Println(a[len(a)-1])
 	fmt.Println(combinationSum(a, 8))
 }
@@ -57,11 +57,9 @@ func combinationSum(candidates []int, target int) [][]int {
 func dfs(candidates []int, begin, target int, path []int, res *[][]int) {
 	// 符合条件的数组,放入res
 	if target == 0 {
-		var tmp []int
 		// path浅拷贝, 深拷贝重新生成tmp, 避免后面的回溯影响到最终的结果
-		for _, v := range path {
-			tmp = append(tmp, v)
-		}
+		// 深拷贝
+		tmp := append([]int(nil), path...) 
 		*res = append(*res, tmp)
 	}
 	// 从当前指针开始
