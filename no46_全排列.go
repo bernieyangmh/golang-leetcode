@@ -18,9 +18,9 @@ import "fmt"
 
 
 func main() {
-	a := []int{1, 2, 3}
+	a := []int{1, 2, 3, 4,5,6}
 
-	fmt.Println(permute(a))
+	fmt.Println(permute(a)[121])
 
 }
 
