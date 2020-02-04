@@ -93,30 +93,11 @@ func rangeBitwiseAnd4(m int, n int) int {
 	if m == n {
 		return m
 	}
-	i := m^n
-	i = i | (i>>1)
-	i = i | (i>>2)
-	i = i | (i>>4)
-	i = i | (i>>8)
-	i = i | (i>>16)
-	return m&^i
+	i := m ^ n
+	i = i | (i >> 1)
+	i = i | (i >> 2)
+	i = i | (i >> 4)
+	i = i | (i >> 8)
+	i = i | (i >> 16)
+	return m &^ i
 }
-
-
-// public int rangeBitwiseAnd(int m, int n) {
-//     if (m == n) {
-//         return m;
-//     }
-//     int i = m ^ n;
-//     i |= (i >>> 1);
-//     i |= (i >>> 2);
-//     i |= (i >>> 4);
-//     i |= (i >>> 8);
-//     i |= (i >>> 16);
-//     return m & ~i;
-// }
-
-// 作者：windliang
-// 链接：https://leetcode-cn.com/problems/bitwise-and-of-numbers-range/solution/xiang-xi-tong-su-de-si-lu-fen-xi-duo-jie-fa-by--41/
-// 来源：力扣（LeetCode）
-// 著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。
