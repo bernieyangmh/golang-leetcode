@@ -19,9 +19,9 @@ package main
 import "fmt"
 
 func main() {
-	a := []int{0, 0, 0, 0, 0, 0, 0, 0, 1}
-	S := 1
-	fmt.Println(findTargetSumWays2(a, S))
+	a := []int{1,4,5,3,7,8,4,6,3}
+	S := 9
+	fmt.Println(findTargetSumWays3(a, S))
 
 }
 
@@ -89,6 +89,7 @@ func findTargetSumWays2(nums []int, S int) int {
 // 链接：https://leetcode-cn.com/problems/target-sum/solution/python-dfs-xiang-jie-by-jimmy00745/
 
 // 一个只能取一次,满足和为p, 背包问题
+// 转化为求组合和为P的有多少个
 func findTargetSumWays3(nums []int, S int) int {
 	var sum int
 	for _, n := range nums {
@@ -99,13 +100,14 @@ func findTargetSumWays3(nums []int, S int) int {
 	}
 	P := (sum + S) / 2
 
-	dp := make([]int, 2001)
-	dp[1000] = 1
+	dp := make([]int, 101)
+	dp[50] = 1
 
 	for _, n := range nums {
 		for j := P; j >= n-1; j-- {
-			dp[j+1000] += dp[j-n+1000]
+			dp[j+50] += dp[j-n+50]
 		}
+		fmt.Println(dp)
 	}
-	return dp[P+1000]
+	return dp[P+50]
 }
