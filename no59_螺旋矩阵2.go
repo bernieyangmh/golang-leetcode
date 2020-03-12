@@ -120,3 +120,42 @@ func walk(i, j, dir int) (int, int) {
 	}
 	return 0, 0
 }
+
+// 别人的简洁写法。。。
+func generateMatrix2(n int) [][]int {
+	l, r, t, b, num := 0, n-1, 0, n-1, 1
+
+	square := [][]int{}
+	for i := 0; i < n; i++ {
+		tmp := make([]int, n)
+		square = append(square, tmp)
+	}
+
+	for num <= n*n {
+		//走左
+		for i := l; i <= r; i++ {
+			square[t][i] = num
+			num++
+		}
+		//上边收缩
+		t++
+		//走下
+		for i:=t;i<=b;i++{
+			square[i][r] = num
+			num++
+		}
+		//右边收缩...
+		r--
+		for i:=r;i>=l;i--{
+			square[b][i] = num
+			num++
+		}
+		b--
+		for i:=b;i>=t;i--{
+			square[i][l] = num
+			num++
+		}
+		l++
+	}
+	return square
+}

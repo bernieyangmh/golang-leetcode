@@ -7,6 +7,10 @@ import (
 //n 皇后问题研究的是如何将 n 个皇后放置在 n×n 的棋盘上，并且使皇后彼此之间不能相互攻击。
 
 func main()  {
+	a:="90acz"
+	for _, c := range a {
+		fmt.Println(c)
+	}
 	fmt.Println(solveNQueens(4))
 
 }
