@@ -19,6 +19,8 @@ func main() {
 	a := "race a car"
 	fmt.Println(isPalindrome(a))
 
+	fmt.Println(fmt.Sprintf("%b", -4))
+
 }
 
 // 注意string和rune的转换
