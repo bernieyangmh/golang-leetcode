@@ -7,7 +7,9 @@
 
 package main
 
-import "fmt"
+import (
+	"fmt"
+)
 
 func main() {
 	grid := [][]int{}
@@ -31,10 +33,12 @@ func shiftGrid(grid [][]int, k int) [][]int {
 	// 移动m*n 次相当于没有移动,取 除m*n的 余数
 	k = k % (len(grid) * len(grid[0]))
 
-	// 经典的三次翻转法，我们可以这么做：
-	// 先把[0, n - k - 1]翻转
-	// 然后把[n - k, n - 1]翻转
-	// 最后把[0, n - 1]翻转
+
+	// 右移k项 经典的三次翻转法，我们可以这么做：
+	//							1234567
+	// 先把[0, n - k - 1]翻转  	5432167
+	// 然后把[n - k, n - 1]翻转	5432176
+	// 最后把[0, n - 1]翻转		6712345
 	reverse(oneArr, 0, len(oneArr)-k-1)
 	reverse(oneArr, len(oneArr)-k, len(oneArr)-1)
 	reverse(oneArr, 0, len(oneArr)-1)

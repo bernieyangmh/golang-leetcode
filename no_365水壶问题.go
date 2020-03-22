@@ -13,6 +13,17 @@
 
 package main
 
+import (
+	"fmt"
+)
+
+func main()  {
+	a := 24
+	b := 13
+	fmt.Println(gcd(a, b))
+
+
+}
 
 func canMeasureWater(x int, y int, z int) bool {
 	// z是0自然可以
@@ -22,6 +33,7 @@ func canMeasureWater(x int, y int, z int) bool {
 
 func gcd(a, b int) int {
 	for b != 0 {
+		fmt.Println(a, b )
 		a, b = b, a%b
 	}
 	return a

@@ -51,7 +51,7 @@ func sortList(head *ListNode) *ListNode {
 			}
 			c1, c2 := intv, intv-1
 			for c1 > 0 && c2 > 0 {
-				if h2 == nil && h1.v || h1.Val < h2.Val {
+				if h2 == nil || h1.Val < h2.Val {
 					pre.Next = h1
 					h1 = h1.Next
 					c1--
