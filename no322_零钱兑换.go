@@ -39,7 +39,6 @@ func coinChange(coins []int, amount int) int {
 			// 硬币面额比金额还大的不考虑
 			if i >= v {
 				dp[i] = min(dp[i], dp[i-v]+1)
-
 			}
 		}
 	}

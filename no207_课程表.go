@@ -1,5 +1,9 @@
 package main
 
+import (
+	"fmt"
+)
+
 //现在你总共有 n 门课需要选，记为 0 到 n-1。
 //在选修某些课程之前需要一些先修课程。 例如，想要学习课程 0 ，你需要先完成课程 1 ，我们用一个匹配来表示他们: [0,1]
 //给定课程总量以及它们的先决条件，判断是否可能完成所有课程的学习？
@@ -23,11 +27,23 @@ package main
 
 //链接：https://leetcode-cn.com/problems/course-schedule/solution/course-schedule-tuo-bu-pai-xu-bfsdfsliang-chong-fa/
 
+func main() {
+	pre := [][]int{}
+	pre = append(pre, []int{2,1})
+	pre = append(pre, []int{4,1})
+	pre = append(pre, []int{4,2})
+	pre = append(pre, []int{3,2})
+	pre = append(pre, []int{5,4})
+	pre = append(pre, []int{5,3})
+	fmt.Println(pre)
+	println(canFinish(6, pre))
+}
 
 
 func canFinish(numCourses int, prerequisites [][]int) bool {
 
 	in_degrees := make([]int, numCourses)
+	fmt.Println(in_degrees)
 	queue := []int{}
 
 	//每个课程需要前置课程的数量

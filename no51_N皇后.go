@@ -6,12 +6,8 @@ import (
 
 //n 皇后问题研究的是如何将 n 个皇后放置在 n×n 的棋盘上，并且使皇后彼此之间不能相互攻击。
 
-func main()  {
-	a:="90acz"
-	for _, c := range a {
-		fmt.Println(c)
-	}
-	fmt.Println(solveNQueens(4))
+func main() {
+	fmt.Println(solveNQueens(8))
 
 }
 
@@ -23,9 +19,9 @@ func solveNQueens(n int) [][]string {
 	// 列是否有
 	columns := make([]bool, n) // columns   |
 	//主对角线
-	d1 := make([]bool, 2*n)    // diagonals \
+	d1 := make([]bool, 2*n) // diagonals \
 	//副对角线
-	d2 := make([]bool, 2*n)    // diagonals /
+	d2 := make([]bool, 2*n) // diagonals /
 
 	// 构建一个空的棋盘
 	candidate := make([][]rune, n)
