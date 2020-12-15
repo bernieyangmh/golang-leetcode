@@ -1,6 +1,14 @@
 package main
 
+import (
+	"fmt"
+)
+
 var res int
+
+func main()  {
+	fmt.Println(totalNQueens(8))
+}
 
 func totalNQueens(n int) int {
 	res = 0
