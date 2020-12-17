@@ -48,24 +48,6 @@ func maxProfit121(prices []int) int {
 	return dp_i_0
 }
 
-func maxProfit(prices []int) int {
-	if len(prices) <= 1 {
-		return 0
-	}
-	var profit int
-
-	for index, value := range prices {
-		if index == 0 {
-			continue
-		}
-		if value - prices[index-1] > 0 {
-			profit += value - prices[index-1]
-		}
-	}
-	return profit
-}
-
-
 //No.122 -- 交易不限次数
 // 非动态规划做法 只有两天有利润cur - prev > 0，就买卖 (1,3,5)这种排序5-3+3-1 == 5-1
 
