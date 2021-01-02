@@ -5,10 +5,10 @@ package main
 // 输入: 1->2->3->4->5->NULL
 // 输出: 5->4->3->2->1->NULL
 
-type ListNode struct {
-	Val  int
-	Next *ListNode
-}
+//type ListNode struct {
+//	Val  int
+//	Next *ListNode
+//}
 
 // 链表反转口诀：斩断后路,不忘前事,才能重获新生
 func reverseList(head *ListNode) *ListNode {

@@ -15,12 +15,10 @@ import "fmt"
 //   [3,2,1]
 // ]
 
-
-
 func main() {
-	a := []int{1, 2, 3, 4,5,6}
+	a := []int{1, 2, 31, 4, 2, 6, 7, 18, 9, 10}
 
-	fmt.Println(permute(a)[121])
+	fmt.Println(permute(a))
 
 }
 
@@ -36,41 +34,56 @@ func main() {
 //    3.path注意深拷贝,不然之后改动path会影响当前的结果
 func permute(nums []int) [][]int {
 	var res [][]int
-	var size  int
+	var size int
 	size = len(nums)
 	dfs(nums, size, 0, 0, []int{}, &res)
 	return res
 }
 
-func dfs(nums []int, size, depth, used int, path []int, res *[][]int)  {
+
+//todo 1。给定十个无序正整数x<=100进行排序，要求排序后每连续五个数的和不大于100
+
+func dfs(nums []int, size, depth, used int, path []int, res *[][]int) {
 	// 走到底,路径放进结果中
 	if depth == size {
 		// 深拷贝
-		tmp := append([]int(nil), path...) 
-
-		// 这样写慢一些
-		// tmp := make([]int, len(path))
-		// copy(tmp, path)
+		tmp := append([]int(nil), path...)
 		*res = append(*res, tmp)
 		return
 	}
+	////  //todo 1。新题目 我们只要一个结果
+	//if len(*res) > 0 {
+	//	return
+	//}
 	// 父结点下面以nums的所有元素当作叶子结点
-	for i := 0; i<size; i++ {
+	for i := 0; i < size; i++ {
 		// used右移动i个,代表当前的叶子结点,和1作与运算 1是已经走过,0是未走过
-		if (used>>uint32(i)) & 1 == 0 {
+		if (used>>uint32(i))&1 == 0 {
 			// 将used的第i位变位1, 1左移动i位变成1000xxx.., 和used作异或运算
-			used = used ^ (1<<uint32(i))
-			
+			used = used ^ (1 << uint32(i))
 			// 将当前结点的值放进路径中,代表我要从这个结点继续走
 			path = append(path, nums[i])
-			// 深度要加1
+			//// todo 1.检查后5个和是否大于100
+			//if len(path) >= 5 && !checkSum(path[len(path)-5:]) {
+			//	return
+			//}
 			dfs(nums, size, depth+1, used, path, res)
-
 			// 回溯 为走其他结点还原成还在父结点的状态; 将对应位改成0, 删掉放进的path的最后一位, 
-			used = used ^ (1<<uint32(i))
+			used = used ^ (1 << uint32(i))
 			if len(path) > 0 {
 				path = path[0 : len(path)-1]
 			}
-		} 
+		}
 	}
+}
+
+func checkSum(arr []int) bool {
+	count := 0
+	for _, v := range arr {
+		count += v
+		if count > 100 {
+			return false
+		}
+	}
+	return true
 }

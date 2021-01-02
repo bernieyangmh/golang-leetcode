@@ -62,7 +62,6 @@ func dfs(nums []int, size, depth, used int, path []int, res *[][]int) {
 			}
 			// 将used的第i位变位1, 1左移动i位变成1000xxx.., 和used作异或运算
 			used = used ^ (1 << uint32(i))
-
 			// 将当前结点的值放进路径中,代表我要从这个结点继续走
 			path = append(path, nums[i])
 			// 深度要加1
