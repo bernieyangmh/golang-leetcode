@@ -13,7 +13,6 @@
 // minStack.top();      --> 返回 0.
 // minStack.getMin();   --> 返回 -2.
 
-
 package main
 
 import (
@@ -67,6 +66,7 @@ func (this *MinStack) Pop() {
 	}
 	// fmt.Println(this.Value)
 	if this.Value[len(this.Value)-1] < 0 {
+		//pop的是当前最小值， 故min要-差值， 如 2-->3, min--1
 		this.MinValue -= this.Value[len(this.Value)-1]
 		this.Value = this.Value[:len(this.Value)-1]
 	} else {
@@ -79,9 +79,12 @@ func (this *MinStack) Top() int {
 	if len(this.Value) == 0 {
 		return 0
 	}
+
+	//min=3 要push2，则顶是-1，min变成2， 故此时返回min=2
 	if this.Value[len(this.Value)-1] < 0 {
 		return this.MinValue
 	} else {
+		//相对值+最小值
 		return this.MinValue + this.Value[len(this.Value)-1]
 	}
 }
