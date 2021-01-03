@@ -53,6 +53,7 @@ func (this *MinStack) Push(x int) {
 		this.Value = append(this.Value, 0)
 		return
 	}
+	//和最小值的差
 	this.Value = append(this.Value, x-this.MinValue)
 	if x < this.MinValue {
 		this.MinValue = x
@@ -88,4 +89,3 @@ func (this *MinStack) Top() int {
 func (this *MinStack) GetMin() int {
 	return this.MinValue
 }
-
