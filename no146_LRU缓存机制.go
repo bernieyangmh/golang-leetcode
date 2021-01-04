@@ -42,6 +42,7 @@ func Constructor(capacity int) LRUCache {
 	return LRUCache{Size: 0, Capacity: capacity, Head: dummyHead, Tail: dummyTail, NodeMap: make(map[int]*DoubleLinkeNode)}
 }
 
+// get要移到头
 func (this *LRUCache) Get(key int) int {
 	if node, ok := this.NodeMap[key]; ok {
 		this.moveToHead(node)
@@ -52,6 +53,8 @@ func (this *LRUCache) Get(key int) int {
 
 }
 
+
+//put 1.已有移到头，没有加节点，满了删除尾
 func (this *LRUCache) Put(key int, value int) {
 	if node, ok := this.NodeMap[key]; ok {
 		// 更新
