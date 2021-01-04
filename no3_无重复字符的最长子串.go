@@ -66,3 +66,18 @@ func max(a, b int) int {
 //         return ans;
 //     }
 // }
+
+func lengthOfLongestSubstring(s string) int {
+	var res, cur int
+	window := make(map[byte]int)
+
+	for i, _:= range s {
+		if _, ok := window[s[i]]; ok {
+			cur = max(window[s[i]], cur)
+		}
+		res = max(res, i-cur+1)
+		window[s[i]] = i+1
+	}
+
+	return res
+}
