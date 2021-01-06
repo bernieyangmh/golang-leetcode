@@ -48,6 +48,21 @@ func maxProfit121(prices []int) int {
 	return dp_i_0
 }
 
+func maxProfit121_1(prices []int) int {
+	n := len(prices)
+	if n < 2 {
+		return 0
+	}
+	dp_i_0, dp_i_1 := 0, -prices[0]
+
+	for i := 1; i < n; i++ {
+		dp_i_0 = max(dp_i_0, dp_i_1+prices[i])
+		// 与No.122的区别，就一次买的机会，减股票价格就够了
+		dp_i_1 = max(dp_i_1, -prices[i])
+	}
+	return dp_i_0
+}
+
 //No.122 -- 交易不限次数
 // 非动态规划做法 只有两天有利润cur - prev > 0，就买卖 (1,3,5)这种排序5-3+3-1 == 5-1
 
