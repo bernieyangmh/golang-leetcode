@@ -1,4 +1,5 @@
 package main
+
 //给定一个非负整数 num。对于 0 ≤ i ≤ num 范围中的每个数字 i ，计算其二进制数中的 1 的数目并将它们作为数组返回。
 //示例 1:
 //输入: 2
@@ -13,13 +14,16 @@ package main
 
 //偶数最后一位是0，1的个数就等于右移一位的个数，即它的1/2
 //奇数就是前面一个偶数的1的数量+1
+
 func countBits(num int) []int {
 	res := make([]int, num+1)
-	for i:=1;i<=num;i++{
-		if i%2==0{
+	for i := 1; i <= num; i++ {
+		if i%2 == 0 {
+			// 偶数和它一半相同
 			res[i] = res[i/2]
 		} else {
-			res[i] = res[i-1]+1
+			//奇数等于前一个+1
+			res[i] = res[i-1] + 1
 		}
 		//等价于
 		//res[i] = res[i>>1] + i&1
