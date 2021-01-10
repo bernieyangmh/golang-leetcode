@@ -131,6 +131,7 @@ func generateMatrix2(n int) [][]int {
 		square = append(square, tmp)
 	}
 
+
 	for num <= n*n {
 		//走左
 		for i := l; i <= r; i++ {
