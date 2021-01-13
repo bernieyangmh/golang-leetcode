@@ -33,8 +33,8 @@ import "fmt"
 //  ["1","1","1","1","1"],
 //  ["1","0","0","1","0"]]
 func main() {
-	a := make([]int, 5)
-	fmt.Println(a)
+	a := "01"
+	fmt.Println(a[0], a[1])
 
 }
 
@@ -87,6 +87,7 @@ func maximalSquare2(matrix [][]byte) int {
 
 	for i := 0; i < len(matrix); i++ {
 		for j := 0; j < len(matrix[0]); j++ {
+			// 是0，包含这个点的无法组成正方形
 			if matrix[i][j] == 48 {
 				dp[i][j] = 0
 				continue
@@ -94,10 +95,12 @@ func maximalSquare2(matrix [][]byte) int {
 			if maxEdge == 0 {
 				maxEdge = 1
 			}
+			// 初始化 第一行、第一列
 			if i == 0 || j == 0 {
 				dp[i][j] = 1
 				continue
 			}
+			//这个点 dp在该位置的值是左边,上边,左上3个值的最小值 再+1 包含这个点
 			dp[i][j] = min(min(dp[i-1][j], dp[i-1][j-1]), dp[i][j-1]) + 1
 			maxEdge = max(maxEdge, dp[i][j])
 		}

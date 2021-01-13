@@ -1,5 +1,8 @@
 package main
 
+import (
+	"fmt"
+)
 
 //给定一个数组 nums，有一个大小为 k 的滑动窗口从数组的最左侧移动到数组的最右侧。
 //你只可以看到在滑动窗口内的 k 个数字。滑动窗口每次只向右移动一位。返回滑动窗口中的最大值。
@@ -113,4 +116,39 @@ func cleanDeque(nums, queue[]int, i, k int) []int {
 	}
 
 	return queue
+}
+
+func main() {
+	nums := []int{1,3,-1,-3,5,3,6,7}
+	fmt.Println(maxSlidingWindow3(nums, 3))
+}
+
+func maxSlidingWindow3(nums []int, k int) []int {
+	if nums == nil{
+		return []int{}
+	}
+
+	//窗口记录的是索引
+	window, res := []int{},[]int{}
+	for i,x := range(nums){
+
+		// 窗口的前一个可以被移出窗口
+		if i >= k && window[0] <= i - k{
+			window = window[1:]
+		}
+
+		// 如果要加的数比窗口的最大值要小， 一直移出窗口的最大值
+		for len(window) > 0 && nums[window[len(window) - 1]] <= x{
+			window = window[:len(window) - 1]
+		}
+		//加上现在的数
+		window = append(window,i)
+
+		// 填充窗口
+		if i >= k - 1{
+			//fmt.Println(i, window, res, nums[window[0]])
+			res = append(res,nums[window[0]])
+		}
+	}
+	return res
 }

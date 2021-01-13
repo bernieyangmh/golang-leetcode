@@ -12,6 +12,7 @@ package main
 import (
 	"container/heap"
 	"fmt"
+	"math/rand"
 	"sort"
 )
 
@@ -30,6 +31,7 @@ func findKthLargest(nums []int, k int) int {
 
 // 类似快速排序,因为知道k在哪边,省却了一边的递归
 func findKthLargest2(nums []int, k int) int {
+	// 在这里要换target， 第K大是倒数
 	return quickSelect(nums, 0, len(nums)-1, len(nums)-k)
 }
 
@@ -37,7 +39,7 @@ func quickSelect(nums []int, l, r, k int) int {
 	if l == r {
 		return nums[l]
 	}
-	pivot := l
+	pivot := rand.Intn(r-l)+l
 	pivot = partition(nums, l, r, pivot)
 
 	if k == pivot {
@@ -53,7 +55,6 @@ func partition(nums []int, l, r, pivot int) int {
 	pivotNum := nums[pivot]
 	swap(nums, pivot, r)
 	s := l
-
 	for i := l; i <= r; i++ {
 		if nums[i] < pivotNum {
 			swap(nums, s, i)

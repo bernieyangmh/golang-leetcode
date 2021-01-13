@@ -12,7 +12,7 @@ package main
 // 2.map，保存a上的所有结点，看b上面有没有相同的
 
 // 3.双指针，一个从a的头后移，一个从b的头后移；走到尾时分别记录下尾结点
-// a指针走到尾，则从b链表开始走；b指针走到尾，则从a链表开始走，知道两个指针指向相同的结点，该结点是相交起始结点
+// a指针走到尾，则从b链表开始走；b指针走到尾，则从a链表开始走，直到两个指针指向相同的结点，该结点是相交起始结点
 // 两个链表的尾不一样，说明两个链表不相交
 // 起点虽然不一样，但路程一样a+b,速度一样，必定同时到达
 func getIntersectionNode(headA, headB *ListNode) *ListNode {
@@ -30,6 +30,7 @@ func getIntersectionNode(headA, headB *ListNode) *ListNode {
 	// 除非两个尾结点不相同
 	for pointA != pointB {
 
+		// 走到尾，标记A的尾节点，从B再走
 		if pointA.Next == nil {
 			tailA = pointA
 			pointA = headB
