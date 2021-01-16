@@ -54,3 +54,28 @@ func helper(root *TreeNode, res []int, depth int) []int {
 
 	return res
 }
+
+func rightSideView(root *TreeNode) []int {
+	var result []int
+	if root == nil {
+		return result
+	}
+	help(root, &result, 1)
+	return result
+}
+
+func help(root *TreeNode, result *[]int, i int) {
+	if len(*result) < i {
+		*result = append(*result, root.Val)
+	}
+	// 先递归右，直到最大层数
+	if root.Right != nil {
+		help(root.Right, result, i+1)
+	}
+
+	// 左边层数比右高，再用左
+	if root.Left != nil {
+		help(root.Left, result, i+1)
+	}
+	return
+}
