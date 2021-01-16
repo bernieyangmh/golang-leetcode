@@ -28,7 +28,6 @@ func buildTree(inorder []int, postorder []int) *TreeNode {
 	return helper(postorder, 0, len(inorder)-1, 0, len(postorder)-1, inorderMap)
 }
 
-
 func helper(postorder []int, inLeft, inRight, postLeft, postRight int, inorderMap map[int]int) *TreeNode {
 	if inLeft > inRight || postLeft > postRight {
 		return nil
@@ -49,5 +48,24 @@ func helper(postorder []int, inLeft, inRight, postLeft, postRight int, inorderMa
 	//根是后序的最右边，postLeft-inLeft+pivotIndex
 	root.Left = helper(postorder, inLeft, pivotIndex-1, postLeft, postLeft-inLeft+pivotIndex-1, inorderMap)
 	root.Right = helper(postorder, pivotIndex+1, inRight, postLeft-inLeft+pivotIndex, postRight-1, inorderMap)
+	return root
+}
+
+func buildTree(inorder []int, postorder []int) *TreeNode {
+	if len(postorder) == 0 {
+		return nil
+	}
+	root := &TreeNode{postorder[len(postorder)-1], nil, nil}
+	i := 0
+	for ; i < len(inorder); i++ {
+		// 后序， 所以最后一个是根，找到其在中序的位置
+		if inorder[i] == postorder[len(postorder)-1] {
+			break
+		}
+	}
+	// 左边是 先序 前i， 后序 前i
+	root.Left = buildTree(inorder[:i], postorder[:i])
+	// 右边是 先序 后i+1 后序的i～最后-1
+	root.Right = buildTree(inorder[i+1:], postorder[i:len(postorder)-1])
 	return root
 }

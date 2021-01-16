@@ -16,6 +16,13 @@ package main
 // 中序遍历 --> 左根右
 // 后序遍历 --> 左右根
 
+// 根是前序的第一个，后序的最后一个。 找到其在中序的索引i
+// 递归调用
+//前+中	左边 前[1:i+1] 中[:i]
+//	    右边 前[i+1:] 中[i+1:]
+//中+后	左边 中[:i] 后[:i]
+//	    右边 中[i+1:] 后[i:len-1]
+
 type TreeNode struct {
 	Val   int
 	Left  *TreeNode
@@ -87,4 +94,28 @@ func helper2(preorder, inorder []int, ps, pe, is, ie int, inorderMap map[int]int
 	root.Right = helper(preorder, inorder, ps+LeftNum+1, pe, rootIndex+1, ie)
 
 	return root
+}
+
+// 简单点
+func buildTree(preorder []int, inorder []int) *TreeNode {
+	if len(preorder) <= 0 {
+		return nil
+	}
+	root_node := &TreeNode{
+		Val:   preorder[0],
+		Left:  nil,
+		Right: nil,
+	}
+	//找到根(第一个) 在中序列的位置， 也是左边的数量
+	i := 0
+	for ; i < len(preorder); i++ {
+		if root_node.Val == inorder[i] {
+			break
+		}
+	}
+	// 左边是 先的 1～i+1， 中的前i
+	root_node.Left = buildTree(preorder[1:i+1], inorder[:i])
+	//先的 后i+1， 中的后i+1
+	root_node.Right = buildTree(preorder[i+1:], inorder[i+1:])
+	return root_node
 }

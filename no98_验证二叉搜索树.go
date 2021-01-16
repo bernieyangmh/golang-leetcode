@@ -42,17 +42,21 @@ func helper(root *TreeNode, lower, upper, islower, isupper int) bool {
 		return true
 	}
 
+	// 左 大于等于 根
 	if islower != 0 && root.Val <= lower {
 		return false
 	}
+
+	// 右 小于等于 根
 	if isupper != 0 && root.Val >= upper {
 		return false
 	}
-	// 进入左结点,左结点的值在最小值和根结点之间
+
+	// 进入左结点,左结点的值在最小值和根结点之间， 不需判断右
 	if !helper(root.Left, lower, root.Val, islower, 1) {
 		return false
 	}
-	// 进入右结点,右结点的值在最大值和根结点之间
+	// 进入右结点,右结点的值在最大值和根结点之间， 不需判断左
 	if !helper(root.Right, root.Val, upper, 1, isupper) {
 		return false
 	}
@@ -61,13 +65,34 @@ func helper(root *TreeNode, lower, upper, islower, isupper int) bool {
 
 }
 
+func isValidBST3(root *TreeNode) bool {
+	if root == nil {
+		return true
+	}
+	return helper2(root, nil, nil)
+
+}
+
+func helper2(root, min, max *TreeNode) bool {
+	if root == nil {
+		return true
+	}
+	if min != nil && root.Val <= min.Val {
+		return false
+	}
+	if max != nil && root.Val >= max.Val {
+		return false
+	}
+	return helper2(root.Left, min, root) && helper2(root.Right, root, max)
+}
+
 // 中序遍历,左根右应该是从大到小的顺序排列
 func isValidBST2(root *TreeNode) bool {
 	stack := []*TreeNode{}
 	var inorder int
 	var flag = false
 
-	// 走到第且处理完 栈全部值,代表走到最右边结点
+	// 走到底且处理完 栈全部值,代表走到最右边结点
 	for root != nil || len(stack) > 0 {
 		for root != nil {
 			// push

@@ -4,6 +4,8 @@ import (
 	"fmt"
 )
 
+// 两数之和
+
 func twoSum(nums []int, target int) []int {
 	mapint := make(map[int]int) // index is need completion value, value is index of v
 	for i, v := range nums {
@@ -16,9 +18,11 @@ func twoSum(nums []int, target int) []int {
 }
 
 func main() {
-	nums := []int{2, 7, 4, 8}
-	target := 9
+	nums := []int{3,2,4}
+	target := 6
 	fmt.Println(twoSum(nums, target))
-	fmt.Println(5/2)
+
+
+
 
 }

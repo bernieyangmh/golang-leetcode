@@ -26,7 +26,7 @@ func PrintNode(pRoot *TreeNode) [][]int {
 	}
 
 	var stack1, stack2 []*TreeNode
-
+	
 	stack1 = append(stack1, pRoot)
 	for len(stack1) > 0 || len(stack2) > 0 {
 		var res1 []int
