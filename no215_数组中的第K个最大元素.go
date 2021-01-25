@@ -39,7 +39,7 @@ func quickSelect(nums []int, l, r, k int) int {
 	if l == r {
 		return nums[l]
 	}
-	pivot := rand.Intn(r-l)+l
+	pivot := rand.Intn(r-l) + l
 	pivot = partition(nums, l, r, pivot)
 
 	if k == pivot {
@@ -63,7 +63,6 @@ func partition(nums []int, l, r, pivot int) int {
 	}
 	swap(nums, s, r)
 	return s
-
 }
 
 func swap(nums []int, a, b int) {
@@ -111,8 +110,6 @@ func (h *IntHeap) Pop() interface{} {
 	return p
 }
 
-
-
 //作者：xilepeng
 //链接：https://leetcode-cn.com/problems/kth-largest-element-in-an-array/solution/dui-python3-by-xilepeng/
 //来源：力扣（LeetCode）
@@ -125,19 +122,20 @@ func findKthLargest4(nums []int, k int) int {
 func heapSort(nums []int) []int {
 	lens := len(nums)
 	// 建堆	lens/2后面都是叶子节点，不需要调整down()
-	for i := lens/2; i >=0; i -- {
+	//  从底向上
+	for i := lens / 2; i >= 0; i-- {
 		down(nums, i, lens)
 	}
 	//将小根堆堆顶排到切片末尾(降序)
-	for i := lens-1; i >= 0; i -- {
+	for i := lens - 1; i >= 0; i-- {
 		nums[0], nums[i] = nums[i], nums[0]
-		lens --
+		lens--
 		down(nums, 0, lens)
 	}
 	return nums
 }
 func down(nums []int, i, lens int) { //小根堆
-	min := i  //i父节点
+	min := i                    //i父节点
 	left, right := 2*i+1, 2*i+2 //左，右孩子
 	if left < lens && nums[left] < nums[min] {
 		min = left

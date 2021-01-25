@@ -12,16 +12,16 @@ package main
 // 我们可以不考虑输出结果的顺序。
 
 func intersection(nums1 []int, nums2 []int) []int {
-	var uniqueMap = make(map[int]int)
+	var uniqueMap = make(map[int]struct{})
 	var uniqueArr = []int{}
 	for _, value := range nums1 {
-		uniqueMap[value] = 1
+		uniqueMap[value] = struct{}{}
 	}
 
 	for _, value := range nums2 {
-		if v, ok := uniqueMap[value]; ok && v == 1 {
+		if _, ok := uniqueMap[value]; ok {
 			uniqueArr = append(uniqueArr, value)
-			uniqueMap[value] = 0
+			delete(uniqueMap, value)
 		}
 	}
 	return uniqueArr

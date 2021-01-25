@@ -1,15 +1,17 @@
 package main
 
+// 第K大的数
+
 import (
 	"fmt"
 )
 
-func main()  {
-	arr := []int{0,1,2,3,4,5,6,7,8,9}
+func main() {
+	arr := []int{0, 1, 2, 3, 4, 5, 6, 7, 8, 9}
 	fmt.Print(FindKthMax(arr, 4))
 }
 
-func FindKthMax(arr []int, k int) int{
+func FindKthMax(arr []int, k int) int {
 	for i := 1; i < k; i++ {
 		for j := i; j > 0; i-- {
 			if arr[j] > arr[j-1] {

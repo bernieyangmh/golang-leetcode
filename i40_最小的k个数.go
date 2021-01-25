@@ -4,48 +4,39 @@ import (
 	"fmt"
 )
 
-func main()  {
-	a := []int{3,2,1}
+func main() {
+	a := []int{3, 2, 1}
 	k := 2
-	fmt.Println(getLeastNumbers(a, k))
+	fmt.Println(GetLeastNumbers_Solution(a, k))
 	//[0,0,1,1,2,2,2,3]
 }
 
-func getLeastNumbers(arr []int, k int) []int {
-	stack := []int{}
-	if k == 0 {
-		return stack
+func GetLeastNumbers_Solution(input []int, k int) []int {
+	if k == 0 || k > len(input) {
+
+		return []int{}
 	}
-	for _, n := range arr{
-		// 如果比栈顶大,跳过
-		if len(stack) > 0 && n >= stack[len(stack)-1] {
-			if len(stack) < k {
-				stack = append(stack, n)
-			}
-			// 栈没有元素或比栈顶小
-		} else if len(stack) == 0 {
-			stack = append(stack, n)
-		} else if n <= stack[len(stack)-1] {
-			// 找到最小的
-			for i:= len(stack)-1;i >= 0; i--{
-				if stack[i] <= n {
-					p2 := append([]int{}, stack[i+1:]...)
-					fmt.Println(stack, p2, n)
-					stack = append(stack[:i+1], n)
-					fmt.Println(stack)
-					stack = append(stack, p2...)
-					fmt.Println(stack)
-					fmt.Println()
-					break
-				}
-				if n < stack[0] {
-					stack = append([]int{n}, stack...)
-				}
-			}
-			if len(stack) > k {
-				stack = stack[:k]
-			}
+	qs(input, 0, len(input)-1)
+	return input[:k]
+}
+
+func qs(arr []int, l, r int) {
+	if l < r {
+		p := partition(arr, l, r)
+		qs(arr, l, p-1)
+		qs(arr, p+1, r)
+	}
+}
+
+func partition(arr []int, l, r int) int {
+	p := arr[r]
+	i := l - 1
+	for j := l; j < r; j++ {
+		if arr[j] <= p {
+			i += 1
+			arr[i], arr[j] = arr[j], arr[i]
 		}
 	}
-	return stack
+	arr[i+1], arr[r] = arr[r], arr[i+1]
+	return i + 1
 }
