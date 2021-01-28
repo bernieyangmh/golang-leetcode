@@ -50,7 +50,7 @@ func findAnagrams(s string, p string) []int {
 			wordMap[string(s)] = 1
 		}
 	}
-	for right<len(s) {
+	for right < len(s) {
 		c1 := string(s[right])
 		if _, ok := wordMap[c1]; ok {
 			curMap[c1]++
@@ -59,12 +59,12 @@ func findAnagrams(s string, p string) []int {
 			}
 		}
 		right++
-		for matchNum==len(wordMap){
+		for matchNum == len(wordMap) {
 			if right-left == len(p) {
 				res = append(res, left)
 			}
-			c2 :=  string(s[left])
-			if _,ok:=wordMap[c2];ok{
+			c2 := string(s[left])
+			if _, ok := wordMap[c2]; ok {
 				curMap[c2]--
 				if curMap[c2] < wordMap[c2] {
 					matchNum--
@@ -77,7 +77,6 @@ func findAnagrams(s string, p string) []int {
 
 }
 
-
 //别人写的
 func findAnagrams2(s string, p string) []int {
 	var (
@@ -88,7 +87,7 @@ func findAnagrams2(s string, p string) []int {
 		needs              int
 	)
 	for _, i := range p {
-		if need[i-'a']==0{
+		if need[i-'a'] == 0 {
 			needs++
 		}
 		need[i-'a']++
@@ -115,6 +114,52 @@ func findAnagrams2(s string, p string) []int {
 				}
 			}
 			left++
+		}
+	}
+	return res
+}
+
+func findAnagrams3(s string, p string) []int {
+	need, window := make(map[byte]int), make(map[byte]int)
+	// 需要的
+	for i := 0; i < len(p); i++ {
+		need[p[i]]++
+	}
+
+	//左指针，右指针，进度
+	l, r, valid := 0, 0, 0
+	res := []int{}
+
+	//右指针滑动
+	for r < len(s) {
+		c := s[r]
+		r++
+
+		//c是我们需要的， 放进窗口里， 如果窗口数量达到，进度+1
+		if need[c] > 0 {
+			window[c] ++
+			if window[c] == need[c] {
+				valid++
+			}
+		}
+
+		// 超过窗口大小，左指针该收缩了
+		for r-l >= len(p) {
+			// 先判断是否满足
+			if valid == len(need) {
+				res = append(res, l)
+			}
+
+			// 左指针收缩，窗口数量-1， 进度-1
+			d := s[l]
+			l++
+			if need[d] > 0 {
+				if window[d] == need[d] {
+					valid--
+				}
+				window[d] --
+			}
+
 		}
 	}
 	return res
