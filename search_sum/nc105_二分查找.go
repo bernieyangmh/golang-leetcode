@@ -24,8 +24,8 @@ import (
  */
 
 func main() {
-	a := []int{4,5}
-	fmt.Println(binaryFind(2,5,a))
+	a := []int{4, 5}
+	fmt.Println(binaryFind(2, 5, a))
 }
 
 func binaryFind(n int, v int, a []int) int {
@@ -41,9 +41,12 @@ func binaryFind(n int, v int, a []int) int {
 	left := 0
 	right := n - 1
 
+	//为什么 while 中是<而不是<=?   「搜索区间」是[left, right)左闭右开
 	for left < right {
 		mid := left + (right-left)/2
 		if v <= a[mid] {
+			// 去掉mid分割成两个区间，即[left, mid)或[mid + 1, right)
+			// 找到 target 时不要立即返回，而是缩小「搜索区间」的上界right, right仍等于mid
 			right = mid
 		} else {
 			left = mid + 1
@@ -52,3 +55,5 @@ func binaryFind(n int, v int, a []int) int {
 	fmt.Println(left, right)
 	return left + 1
 }
+
+
