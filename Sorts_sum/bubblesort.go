@@ -30,3 +30,5 @@ func foo2(values []int) {
 	values = append(values, 1)
 	values[3] = 33
 }
+
+// https://mp.weixin.qq.com/s/XixnvjTWWBe3AsL9w1knwA

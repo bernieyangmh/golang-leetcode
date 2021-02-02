@@ -41,6 +41,19 @@ func reverseKGroup(head *ListNode, k int) *ListNode {
 	return head.Next
 }
 
+func reverse(head, tail *ListNode) (*ListNode, *ListNode) {
+	prev := tail.Next
+	p := head
+	for prev != tail {
+		next := p.Next
+		p.Next = prev
+		prev = p
+		p = next
+	}
+	return tail, head
+}
+
+
 func reverseKGroup(head *ListNode, k int) *ListNode {
 	dummy := new(ListNode)
 	dummy.Next = head
@@ -65,18 +78,6 @@ func reverseKGroup(head *ListNode, k int) *ListNode {
 		end = start                   // 4 -> 开始下一次for循环
 	}
 	return dummy.Next
-}
-
-func reverse(head, tail *ListNode) (*ListNode, *ListNode) {
-	prev := tail.Next
-	p := head
-	for prev != tail {
-		next := p.Next
-		p.Next = prev
-		prev = p
-		p = next
-	}
-	return tail, head
 }
 
 // 链表反转口诀：斩断后路,不忘前事,才能重获新生
